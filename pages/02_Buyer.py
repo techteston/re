@@ -28,13 +28,14 @@ st.caption("Locate and Bid on products available for Sale")
 if 'key' in st.session_state:
     df_available = st.session_state['key']
     df_available2 = df_available[df_available["WoS Threshold"] < df_available["Weeks of Supply"]]
-    df_available2
     df_buyer_nodes = create_nodes(df_available2,"Inventory","Inventory","Location","Green")
+    df_available4 = df_available2[["Product","Location","Inventory"]]
+    st.dataframe(data=df_available4, width=None, height=None,hide_index=1)
         # Create the map layout
     layout = go.Layout(
         mapbox=dict(
             center=dict(lat=df_available2['Latitude'].mean(), lon=df_available2['Longitude'].mean()),
-            zoom=3,
+            zoom=5,
             style='open-street-map',
         ),
         showlegend=False,

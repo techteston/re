@@ -48,11 +48,12 @@ if uploaded_file is not None:
         df_incm=pd.read_excel(uploaded_file,sheet_name="Incoming")
         with st.expander("Uploaded Data", expanded=False):
             st.caption("Current Inventory") 
-            df_invt
+            st.dataframe(data=df_invt, width=None, height=None,hide_index=1)
             st.caption("Current Forecast by Week")
-            df_fcst
+            st.dataframe(data=df_fcst, width=None, height=None,hide_index=1)
             st.caption("Incoming Deliveries")
-            df_incm
+            st.dataframe(data=df_incm, width=None, height=None,hide_index=1)
+            
 if len(df) > 0:
     with st.expander('Current Weeks of Supply', expanded=False):
         df_invt2 = df_invt.copy()
@@ -96,8 +97,9 @@ if len(df) > 0:
         df_psi_all_fweek = df_psi_all[df_psi_all["Week"] == df_fcst_inc["Week"].iloc[0]].reset_index(drop=True)
 
         df_slow_propose = df_psi_all_fweek[["Product","Week","Weeks of Supply"]]
+        df_slow_propose = df_slow_propose.round(decimals=1)
+        df_slow_propose["WoS Threshold"] = 3
 
-        df_slow_propose["WoS Threshold"] = 0
         
         df_slow_propose_edited = st.data_editor(
         df_slow_propose,
@@ -115,9 +117,9 @@ if len(df) > 0:
         del st.session_state[key]
 
     if st.button('Approve for Selling'):
-        st.write(len(df_slow_propose_edited))
+#        st.write(len(df_slow_propose_edited))
         df_slow_determined = df_slow_propose_edited[df_slow_propose_edited["WoS Threshold"] < df_slow_propose_edited["Weeks of Supply"]]
-        st.write(len(df_slow_determined))
+#        st.write(len(df_slow_determined))
         # Either the City Information should be carried over or its need to be merged later.
         df_slow_determined = pd.merge(df_slow_determined,df_invt,on="Product",how="left")
         if 'key' not in st.session_state:
