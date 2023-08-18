@@ -1,10 +1,12 @@
 import streamlit as st
 import plotly.graph_objects as go
 
-st.set_page_config(
-    page_title="Buyer Portal",
-    page_icon="",
-)
+hide_st_style = """
+<style>
+footer {visibility: hidden;}
+</style>
+"""
+st.markdown(hide_st_style,unsafe_allow_html=True)
 
 st.title("Welcome to the Buyer Portal")
 
@@ -22,7 +24,7 @@ def create_nodes(fd_data,fv_value_name,fv_value,fv_location,fv_color):
     )
     return(nodes_trace)
 
-st.caption("Locate and Bid on Items available for Sale")
+st.caption("Locate and Bid on products available for Sale")
 if 'key' in st.session_state:
     df_available = st.session_state['key']
     df_available2 = df_available[df_available["WoS Threshold"] < df_available["Weeks of Supply"]]

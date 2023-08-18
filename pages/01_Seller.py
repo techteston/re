@@ -31,7 +31,7 @@ def get_lat_lon(fd_data,fv_location):
 
 
 st.title("Welcome to the Seller Portal")
-st.caption("Determine Potential Slow Moving Products and Mark for Sale")
+st.caption("Determine potential slow moving Products and mark for Sale")
 
 df = pd.DataFrame()
 uploaded_file = st.file_uploader("Upload an Excel File",type=['csv','xlsx'])
