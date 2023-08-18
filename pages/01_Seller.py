@@ -87,7 +87,8 @@ if len(df) > 0:
             df_psi["Weeks of Supply"] = df_psi['ending_inventory'] / df_psi["N4WK Forecast Average"]
         # Use concat and not append
             #    df_psi_all = pd.concat(df_psi_all,df_psi4,ignore_index=True)
-            df_psi_all = df_psi_all.append(df_psi,ignore_index=True)
+            df_psi_all = pd.concat([df_psi_all, df_psi], ignore_index=True)
+            # df_psi_all = df_psi_all.append(df_psi,ignore_index=True)
             
             ctr = ctr + 1
 
